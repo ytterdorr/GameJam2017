@@ -9,7 +9,10 @@ class Player(pygame.sprite.Sprite):
 		self.rect = pygame.rect.Rect((320, 240), self.image.get_size())
 
 	#def update(self):
-	def update(self, dt):
+	#def update(self, dt):
+	def update(self, dt, game):
+		last = self.rect.copy()
+
 		key = pygame.key.get_pressed()
 		if key[pygame.K_LEFT]:
 			#self.rect.x -= 10
@@ -20,6 +23,10 @@ class Player(pygame.sprite.Sprite):
 			self.rect.y -= 300 * dt
 		if key[pygame.K_DOWN]:
 			self.rect.y += 300 * dt
+
+
+		for cell in pygame.sprite.spritecollide(self, game.walls, False):
+			self.rect = last
 
 
 
@@ -67,7 +74,7 @@ class Game(object):
 
 			#sprites.update()
 			#sprites.update(dt / 1000.)
-			sprites.update(dt/1000.)
+			sprites.update(dt/1000., self)
 
 			#screen.fill((200, 200, 200))
 			screen.blit(background, (0,0))
