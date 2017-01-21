@@ -25,9 +25,19 @@ class Player(pygame.sprite.Sprite):
 		if key[pygame.K_DOWN]:
 			self.rect.y += 300 * dt
 
-
+		# Conforming collisions
+		new = self.rect
 		for cell in pygame.sprite.spritecollide(self, game.walls, False):
-			self.rect = last
+			#self.rect = last
+			cell = cell.rect
+			if last.right <= cell.left and new.right > cell.left:
+				new.right = cell.left
+			if last.left >= cell.right and new.left < cell.right:
+				new.left = cell.right
+			if last.bottom <= cell.top and new.bottom > cell.top:
+				new.bottom = cell.top
+			if last.top >= cell.bottom and new.top < cell.bottom:
+				new.top = cell.bottom
 
 
 
@@ -62,7 +72,7 @@ class Game(object):
 		while 1:
 			# Timing
 			#clock.tick(30)
-			dt = clock.tick(60)
+			dt = clock.tick(30)
 			
 
 			for event in pygame.event.get():
