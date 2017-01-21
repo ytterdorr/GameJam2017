@@ -11,7 +11,8 @@ class Player(pygame.sprite.Sprite):
 	#def update(self):
 	#def update(self, dt):
 	def update(self, dt, game):
-		last = self.rect.copy()
+		# Take copy of our position
+		last = self.rect.copy() 
 
 		key = pygame.key.get_pressed()
 		if key[pygame.K_LEFT]:
@@ -61,7 +62,7 @@ class Game(object):
 		while 1:
 			# Timing
 			#clock.tick(30)
-			dt = clock.tick(30)
+			dt = clock.tick(60)
 			
 
 			for event in pygame.event.get():
